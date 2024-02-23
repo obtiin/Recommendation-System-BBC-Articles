@@ -5,6 +5,16 @@ Each word in our BBC article data can be represented by 300-dimensional vector, 
 
 The flask web app displays a list of all the BBC articles on the landing page, and after clicking on an article, the user is directed to another page where we see the text of that article, alongside the top 5 recommended articles. 
 
-Since the app is run locally, after running the orchestrator URL in your browser to get the list of articles:
+- Since the app is run locally, after running the orchestrator.sh file, you can copy paste this URL in your browser to navigate to the landing page:
+http://127.0.0.1:5000
 
-And to get to a specific article you would go to:
+- To get to another article, you can click on any hyperlink on the homepage, for example:
+http://127.0.0.1:5000/article/entertainment/303.txt
+
+- To stop running the app, hit "Ctrl C" on Windows or "Command C" on Mac.
+
+# Files:
+- orchestrator.sh
+    - Creates new environment using env.yml file
+    - Downloads article data using wget command ()
+    - Runs server.py
