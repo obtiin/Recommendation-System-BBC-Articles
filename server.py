@@ -1,10 +1,12 @@
 # Launch with
 #
-# python app.py
+# python server.py
 
 from flask import Flask, render_template
 import sys
 import pickle
+import boto3
+import os
 
 app = Flask(__name__)
 
@@ -32,35 +34,36 @@ def article(topic, filename):
     return render_template('article.html',title = artic_html[1],text = [artic_html[2]],recs = recs_html)
 
 
-f = open('articles.pkl', 'rb')
-articles = pickle.load(f)
-f.close()
+# f = open('articles.pkl', 'rb')
+# articles = pickle.load(f)
+# f.close()
 
-f = open('recommended.pkl', 'rb')
-recommended = pickle.load(f)
-f.close()
-
-
-##Just a bunch of test code I needed to see what was going on.
-
-# print((articles[0][1]))
-# topic = "business"
-# filename = "030.txt"
-# article_object = []
-# checker = topic + '/' + filename
-
-# for article_name in articles:
-#     parts = article_name[0].split("/")
-#     s = parts[-2] + "/" + parts[-1] 
-#     if s == checker:  # Seemingly because this part is messed up, meaning the pickle is messed up?
-#         article_object = article_name
-#         break
-# print(len(article_object))  # This is always a empty list
-# x = recommended[("business","353.txt")]
-# for v in x:
-#     print(v)  # v[0] is blank, v[2] is title.
+# f = open('recommended.pkl', 'rb')
+# recommended = pickle.load(f)
+# f.close()
 
 
 # for local debug
 if __name__ == '__main__':
-    app.run(debug=True)
+    aws_public = os.environ.get('aws_public')
+    aws_secret = os.environ.get('aws_priv')
+    name = "ob123"  # Can make these environment vars later
+    bucket_name = "article-proj"  # Can make these environment vars later
+    keys = ["pickles/articles.pkl", "pickles/recommended.pkl"]
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=aws_public,
+        aws_secret_access_key=aws_secret
+    )
+    data = {}
+    for key_name in keys:
+        object = s3.get_object(Bucket=bucket_name, Key=key_name)
+        data[key_name] = pickle.loads(object['Body'].read())
+
+    articles = data["pickles/articles.pkl"]
+    recommended = data["pickles/recommended.pkl"]
+    app.run(debug=False, host='0.0.0.0')
+
+
+
+
