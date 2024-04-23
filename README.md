@@ -7,7 +7,7 @@ The flask web app displays a list of all the BBC articles on the landing page, a
 
 - http://13.57.19.113/
 - To get to another article, you can click on any hyperlink on the homepage, for example:
-[`http://127.0.0.1/:5000/article/entertainment/303.txt`](http://13.57.19.113/article/entertainment/074.txt)
+http://13.57.19.113/article/entertainment/074.txt
 
 # Files:
 - Dockerfile:
