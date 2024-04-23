@@ -11,8 +11,16 @@ The flask web app displays a list of all the BBC articles on the landing page, a
 
 # Files:
 - Dockerfile:
+    - The Dockerfile is used to build a Docker image for the project.
+    - It specifies the environment and dependencies required to run the application, and actually runs the application.
 - requirements.txt
+    - The requirements.txt file lists all the Python dependencies required for the project to be installed by pip.
 - doc2vec.py:
+    - The doc2vec.py file contains code for generating document embeddings using the Doc2Vec algorithm.
+    - These embeddings are used to calculate article similarity for recommendation.
 - server.py
-- article.html:
-- articles.html:
+    - The server.py file contains the Flask application code.
+    - It defines the routesfor serving the web application, including displaying articles and generating recommendations.
+- article.html & articles.html:
+    - These two html files are the html templates for displaying the landing page (a list of all the articles), and the page     
+      displaying the article content and its similar articles.
